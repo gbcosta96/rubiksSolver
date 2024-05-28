@@ -20,15 +20,15 @@ void CubeModel::printCube() {
     for(int j = 0; j < _size*_size; j++) {
         if (j % _size == 0)
             for(int i = 0; i < _size; i++)
-                cout << "   ";
-        cout << Modifier(static_cast<CubeFacesEnum>(_stickers[CubeFacesEnum::UP][j])) << "  " << Modifier(CubeFacesEnum::END) << ' ';
+                cout << "     ";
+        cout << Piece(static_cast<CubeFacesEnum>(_stickers[CubeFacesEnum::UP][j]));
         if (j % _size == _size - 1) cout << endl << endl;
     }
 
     for( int x = 0; x < _size; x++) {
         for (int i = CubeFacesEnum::LEFT; i <= CubeFacesEnum::BACK; i++) {
             for (int j = 0; j < _size; j++ ) {
-                cout << Modifier(static_cast<CubeFacesEnum>(_stickers[i][x*_size + j])) << "  " << Modifier(CubeFacesEnum::END) << ' ';
+                cout << Piece(static_cast<CubeFacesEnum>(_stickers[i][x*_size + j]));
             }
         }
         cout << endl << endl;
@@ -37,8 +37,8 @@ void CubeModel::printCube() {
     for(int j = 0; j < _size*_size; j++) {
         if (j % _size == 0)
             for(int i = 0; i < _size; i++)
-                cout << "   ";
-        cout << Modifier(static_cast<CubeFacesEnum>(_stickers[CubeFacesEnum::DOWN][j])) << "  " << Modifier(CubeFacesEnum::END) << ' ';
+                cout << "     ";
+        cout << Piece(static_cast<CubeFacesEnum>(_stickers[CubeFacesEnum::DOWN][j]));
         if (j % _size == _size - 1) cout << endl << endl;
     }
 }
