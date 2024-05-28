@@ -5,7 +5,6 @@
 #include <map>
 #include <iostream>
 #include "cubeFacesEnum.h"
-#include "faceSectorEnum.h"
 #include "movesModel.h"
 
 using namespace std;
@@ -23,13 +22,13 @@ class CubeModel {
 
  private:
     void getSectors();
-    vector<MovesModel> getMoves(string scramble);
-    void createRotations(MovesModel move);
-    void makeRotation(int repetitions, vector<map<FaceSectorEnum, vector<int>>> rotations );
+    void rotate(MovesModel move);
+    void makeRotation(int repetitions, vector<pair<CubeFacesEnum, vector<int>>> moves );
 
     int _size;
     vector<map<FaceSectorEnum, vector<int>>> _sectors;
     vector<vector<CubeFacesEnum>> _stickers;
+
 };
 
 #endif // CUBEMODEL_H

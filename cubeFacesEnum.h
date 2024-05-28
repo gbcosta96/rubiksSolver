@@ -1,5 +1,5 @@
-#ifndef CUBEFACESENUM_H
-#define CUBEFACESENUM_H
+#ifndef CUBEENUMS_H
+#define CUBEENUMS_H
 
 enum CubeFacesEnum {
     UP,
@@ -11,4 +11,12 @@ enum CubeFacesEnum {
     END,
 };
 
-#endif // CUBEFACESENUM_H
+enum FaceSectorEnum {
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST,
+};
+
+
+#endif // CUBEENUMS_H
