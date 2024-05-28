@@ -16,10 +16,10 @@ enum CornerPiecesEnum {
     UBR,
     UFR,
     UFL,
-    DFL,
-    DFR,
-    DBR,
     DBL,
+    DBR,
+    DFR,
+    DFL,
 };
 
 enum EdgePiecesEnum {

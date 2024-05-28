@@ -1,14 +1,16 @@
 #include "movesModel.h"
 
-MovesModel::MovesModel(CubeFacesEnum face, int quantity, int wide) : 
-    _face( face ),
+MovesModel::MovesModel(CubeFacesEnum face, int quantity, int wide) :
+    _face(face),
     _quantity(quantity),
     _wide(wide) {
+    std::cout << toString() << " ";
 }
 
 MovesModel::MovesModel(std::string str) :
     _quantity(1),
     _wide(1) {
+    std::cout << str << " ";
     if(str[0] == 'F') {
         _face = CubeFacesEnum::FRONT;
     } else if(str[0] == 'B') {
@@ -48,5 +50,33 @@ int MovesModel::quantity() {
 
 CubeFacesEnum MovesModel::face() {
     return _face;
+}
+
+std::string MovesModel::toString() {
+    std::string str;
+    if(_wide > 2) {
+        str.append(std::to_string(_wide));
+    }
+
+    switch (_face) {
+        case UP: str.append("U"); break;
+        case DOWN: str.append("D"); break;
+        case RIGHT: str.append("R"); break;
+        case LEFT: str.append("L"); break;
+        case FRONT: str.append("F"); break;
+        case BACK: str.append("B"); break;
+    }
+
+    if(_wide >= 2) {
+        str.append("w");
+    }
+
+    if(_quantity == 2) {
+        str.append("2");
+    } else if (_quantity == 3) {
+        str.append("'");
+    }
+
+    return str;
 }
 

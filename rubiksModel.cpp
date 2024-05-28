@@ -8,7 +8,7 @@ RubiksModel::RubiksModel() {
 void RubiksModel::solvedCube() {
     _centers = { UP, LEFT, FRONT, RIGHT, BACK, DOWN };
     _corners = {{UBL, OK}, {UBR, OK}, {UFR, OK}, {UFL, OK},
-                {DFL, OK}, {DFR, OK}, {DBR, OK}, {DBL, OK}};
+                {DBL, OK}, {DBR, OK}, {DFR, OK}, {DFL, OK}};
     _edges = {{UB, OK}, {UR, OK}, {UF, OK}, {UL, OK},
                 {FR, OK}, {BR, OK}, {FL, OK}, {BL, OK},
                 {DB, OK}, {DR, OK}, {DF, OK}, {DL, OK}};
@@ -21,6 +21,7 @@ void RubiksModel::printVoid() {
 }
 
 void RubiksModel::printCube() {
+    cout << endl;
     printVoid();
     cout << Piece(_corners[UBL], OK) << Piece(_edges[UB], OK) << Piece(_corners[UBR], OK) << endl << endl;
     printVoid();

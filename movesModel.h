@@ -12,6 +12,7 @@ class MovesModel {
     int wide();
     int quantity();
     CubeFacesEnum face();
+    std::string toString();
 
  private:
     int _wide;
