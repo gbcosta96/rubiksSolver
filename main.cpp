@@ -10,8 +10,10 @@ int main( int argc, char* argv[] ) {
     cube.printCube();*/
 
     RubiksModel rubiks;
-    rubiks.moveCube("B");
+    rubiks.moveCube("D L2 U L2 U' R2 U' L' F R2 U2 L F' D2 U L' F");
     rubiks.printCube();
+
+    rubiks.solveCube();
 
     return 0;
 }

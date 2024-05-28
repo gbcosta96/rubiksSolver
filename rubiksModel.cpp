@@ -1,4 +1,5 @@
 #include "rubiksModel.h"
+#include <bits/stdc++.h> 
 #include "colorMod.h"
 
 RubiksModel::RubiksModel() {
@@ -148,6 +149,119 @@ void RubiksModel::rotate(MovesModel move) {
         for(int j = 0; j < centerSwap.size(); j++) {
             int aux = (j + 1) % cornerSwap.size();
             _centers[centerSwap[aux]] = originalCenters[centerSwap[j]];
+        }
+    }
+}
+
+void RubiksModel::solveCube() {
+    solveCross();
+    printCube();
+    solveCorners();
+    printCube();
+}
+
+void RubiksModel::solveCross() {
+    auto it = find_if(_edges.begin(), _edges.end(), [](const auto& p) { return p.first == EdgePiecesEnum::DB;});
+    switch(it - _edges.begin()) {
+        case EdgePiecesEnum::UB: moveCube(it->second == OK ? "B2" : "U R B'"); break;
+        case EdgePiecesEnum::UR: moveCube(it->second == OK ? "U' B2" : "R B'"); break;
+        case EdgePiecesEnum::UF: moveCube(it->second == OK ? "U2 B2" : "U' R B'"); break;
+        case EdgePiecesEnum::UL: moveCube(it->second == OK ? "U B2" : "L' B"); break;
+
+        case EdgePiecesEnum::FR: moveCube(it->second == OK ? "R' D" : "F D2"); break;
+        case EdgePiecesEnum::BR: moveCube(it->second == OK ? "R D" : "B'"); break;
+        case EdgePiecesEnum::FL: moveCube(it->second == OK ? "L D'" : "F' D2"); break;
+        case EdgePiecesEnum::BL: moveCube(it->second == OK ? "L' D'" : "B"); break;
+
+        case EdgePiecesEnum::DB: if (it->second != OK) moveCube("D R' B'"); break;
+        case EdgePiecesEnum::DR: moveCube(it->second == OK ? "D" : "R' B'"); break;
+        case EdgePiecesEnum::DF: moveCube(it->second == OK ? "D2" : "F' R' D"); break;
+        case EdgePiecesEnum::DL: moveCube(it->second == OK ? "D'" : "L B"); break;
+    }
+
+    it = find_if(_edges.begin(), _edges.end(), [](const auto& p) { return p.first == EdgePiecesEnum::DR;});
+    switch(it - _edges.begin()) {
+        case EdgePiecesEnum::UB: moveCube(it->second == OK ? "U' R2" : "B' R B"); break;
+        case EdgePiecesEnum::UR: moveCube(it->second == OK ? "R2" : "R' D' F D"); break;
+        case EdgePiecesEnum::UF: moveCube(it->second == OK ? "U' R2" : "F R' F'"); break;
+        case EdgePiecesEnum::UL: moveCube(it->second == OK ? "U2 R2" : "L D F' D'"); break;
+
+        case EdgePiecesEnum::FR: moveCube(it->second == OK ? "R'" : "D' F D"); break;
+        case EdgePiecesEnum::BR: moveCube(it->second == OK ? "R" : "D B' D'"); break;
+        case EdgePiecesEnum::FL: moveCube(it->second == OK ? "F2 R'" : "D' F' D"); break;
+        case EdgePiecesEnum::BL: moveCube(it->second == OK ? "D2 L' D2" : "D B D'"); break;
+
+        case EdgePiecesEnum::DR: if (it->second != OK) moveCube("R D' F D"); break;
+        case EdgePiecesEnum::DF: moveCube(it->second == OK ? "F2 U' R2" : "F' R'"); break;
+        case EdgePiecesEnum::DL: moveCube(it->second == OK ? "L2 U2 R2" : "L' D' F' D"); break;
+    }
+
+    it = find_if(_edges.begin(), _edges.end(), [](const auto& p) { return p.first == EdgePiecesEnum::DF;});
+    switch(it - _edges.begin()) {
+        case EdgePiecesEnum::UB: moveCube(it->second == OK ? "U2 F2" : "U' L F'"); break;
+        case EdgePiecesEnum::UR: moveCube(it->second == OK ? "U F2" : "R' F R"); break;
+        case EdgePiecesEnum::UF: moveCube(it->second == OK ? "F2" : "U L F'"); break;
+        case EdgePiecesEnum::UL: moveCube(it->second == OK ? "U' F2" : "L F'"); break;
+
+        case EdgePiecesEnum::FR: moveCube(it->second == OK ? "D R' D'" : "F"); break;
+        case EdgePiecesEnum::BR: moveCube(it->second == OK ? "D R D'" : "R2 F R2"); break;
+        case EdgePiecesEnum::FL: moveCube(it->second == OK ? "D' L D" : "F'"); break;
+        case EdgePiecesEnum::BL: moveCube(it->second == OK ? "D' L' D" : "L2 F'"); break;
+
+        case EdgePiecesEnum::DF: if (it->second != OK) moveCube("F' D R' D'");break;
+        case EdgePiecesEnum::DL: moveCube(it->second == OK ? "L2 U' F2" : "L' F'"); break;
+    }
+
+    it = find_if(_edges.begin(), _edges.end(), [](const auto& p) { return p.first == EdgePiecesEnum::DL;});
+    switch(it - _edges.begin()) {
+        case EdgePiecesEnum::UB: moveCube(it->second == OK ? "U' L2" : "B L' B'"); break;
+        case EdgePiecesEnum::UR: moveCube(it->second == OK ? "U2 L2" : "U F' L F"); break;
+        case EdgePiecesEnum::UF: moveCube(it->second == OK ? "U L2" : "F' L F"); break;
+        case EdgePiecesEnum::UL: moveCube(it->second == OK ? "L2" : "U' F' L F"); break;
+
+        case EdgePiecesEnum::FR: moveCube(it->second == OK ? "D2 R' D2" : "D  F D'"); break;
+        case EdgePiecesEnum::BR: moveCube(it->second == OK ? "D2 R D2" : "D' B' D"); break;
+        case EdgePiecesEnum::FL: moveCube(it->second == OK ? "L" : "D F' D'"); break;
+        case EdgePiecesEnum::BL: moveCube(it->second == OK ? "L'" : "D' B D"); break;
+
+        case EdgePiecesEnum::DL: if (it->second != OK) moveCube("L' D F' D'"); break;
+    }
+}
+
+void RubiksModel::solveCorners() {
+    // try find easy corners
+    while(true) {
+        auto it = find_if(_corners.begin(), _corners.begin() + 4, [](const auto& p) {
+            return p.first >= DBL;
+        });
+
+        if (it - _corners.begin() <= 3) {
+            pair<CornerPiecesEnum, PieceOrientation> pair = (*it);
+            int auf = (pair.first - (it - _corners.begin())) % 4;
+            if (auf > 0) {
+                rotate(MovesModel(CubeFacesEnum::UP, auf));
+            }
+            switch(pair.first) {
+                case DBL: {pair.second == CCW ? moveCube(SEXYRL) : pair.second == CW ? moveCube(SEXYLB) : moveCube(SEXYRL + SEXYRL + SEXYRL); break;}
+                case DBR: {pair.second == CCW ? moveCube(SEXYRB) : pair.second == CW ? moveCube(SEXYLR) : moveCube(SEXYRB + SEXYRB + SEXYRB); break;}
+                case DFR: {pair.second == CCW ? moveCube(SEXYRR) : pair.second == CW ? moveCube(SEXYLF) : moveCube(SEXYRR + SEXYRR + SEXYRR); break;}
+                case DFL: {pair.second == CCW ? moveCube(SEXYRF) : pair.second == CW ? moveCube(SEXYLL) : moveCube(SEXYRF + SEXYRF + SEXYRF); break;}
+            }
+        } else {
+            // try find wrong bottom corners
+            int i = DBL;
+            for (; i <= DFL; i++) {
+                if (_corners[i].first >= DBL && ((_corners[i].second != OK) || i != _corners[i].first)) {
+                    switch(i) {
+                        case DBL: moveCube(SEXYRL); break;
+                        case DBR: moveCube(SEXYRB); break;
+                        case DFR: moveCube(SEXYRR); break;
+                        case DFL: moveCube(SEXYRF); break;
+                    }
+                    break;
+                }
+            }
+            if (i > DFL) break;
         }
     }
 }

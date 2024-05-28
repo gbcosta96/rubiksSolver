@@ -20,6 +20,8 @@ class RubiksModel {
     void solvedCube();
     void moveCube(string moveList);
 
+    void solveCube();
+
     vector<pair<CornerPiecesEnum, PieceOrientation>> _corners;
     vector<pair<EdgePiecesEnum, PieceOrientation>> _edges;
     vector<CubeFacesEnum> _centers;
@@ -27,7 +29,8 @@ class RubiksModel {
  private:
     void printVoid();
     void rotate(MovesModel move);
-
+    void solveCross();
+    void solveCorners();
 };
 
 #endif // RUBIKSMODEL_H
